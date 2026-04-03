@@ -20,9 +20,47 @@ const rootDir = path.resolve(__dirname, '..');
 
 // Initialize Firebase Admin (ADC automatically picks up credentials on Firebase/Cloud Run)
 if (!admin.apps.length) {
-  admin.initializeApp({
-    projectId: 'agri-trust-plus-1819'
-  });
+  const serviceAccountEnv = process.env.FIREBASE_SERVICE_ACCOUNT;
+  const serviceAccountPath = path.resolve(rootDir, 'serviceAccountKey.json');
+  
+  let initialized = false;
+
+  // 1. Check for Service Account Key local file (highest priority for local dev)
+  try {
+    const stats = await fs.stat(serviceAccountPath);
+    if (stats.isFile()) {
+      const fileContent = await fs.readFile(serviceAccountPath, 'utf-8');
+      admin.initializeApp({
+        credential: admin.credential.cert(JSON.parse(fileContent))
+      });
+      console.log('Firebase initialized from serviceAccountKey.json');
+      initialized = true;
+    }
+  } catch (e) {
+    // File not found is expected if not provided locally
+  }
+
+  // 2. Check for FIREBASE_SERVICE_ACCOUNT env var (used on Render)
+  if (!initialized && serviceAccountEnv) {
+    try {
+      const config = JSON.parse(serviceAccountEnv);
+      admin.initializeApp({
+        credential: admin.credential.cert(config)
+      });
+      console.log('Firebase initialized from env var.');
+      initialized = true;
+    } catch (e) {
+      console.error('Failed to parse FIREBASE_SERVICE_ACCOUNT:', e);
+    }
+  }
+
+  // 3. Last fallback: Project ID only (requires ADC/GCP environment)
+  if (!initialized) {
+    admin.initializeApp({
+      projectId: 'agri-trust-plus-1819'
+    });
+    console.log('Firebase initialized with default Project ID.');
+  }
 }
 const db = getFirestore();
 

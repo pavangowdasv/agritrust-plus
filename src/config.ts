@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 // Base URL for API calls. 
 // Locally, Vite proxies /api to localhost:3000. 
 // In production (Option B), this should be your Render backend URL (e.g. https://agritrust-backend.onrender.com)
