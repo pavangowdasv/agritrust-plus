@@ -1,0 +1,7 @@
+{
+  "name": "AgriTrust",
+  "description": "A modern, minimal, blockchain-based agricultural supply chain platform ensuring transparency, direct payments, and traceability.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

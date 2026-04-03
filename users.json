@@ -1,0 +1,213 @@
+[
+  {
+    "email": "test@example.com",
+    "password": "password123",
+    "role": "consumer"
+  },
+  {
+    "email": "pavangowdasv1819@gmail.com",
+    "password": "123456",
+    "role": "consumer",
+    "phone": "9876543210",
+    "address": "XGRV+M42",
+    "state": "Karnataka",
+    "city": "Bengaluru"
+  },
+  {
+    "email": "sam@me.in",
+    "password": "123456",
+    "role": "farmer",
+    "phone": "9876543210",
+    "address": "qwertyuiop",
+    "state": "Karnataka",
+    "city": "Belagavi"
+  },
+  {
+    "email": "yukths@me.com",
+    "password": "123456",
+    "role": "farmer",
+    "phone": "7894561320",
+    "address": "ugh,iuh",
+    "state": "Karnataka",
+    "city": "Vijayapura"
+  },
+  {
+    "email": "pavang@gmail.com",
+    "password": "123457",
+    "role": "farmer",
+    "phone": "1234567890",
+    "address": "erff",
+    "state": "Delhi",
+    "city": "Laxmi Nagar"
+  },
+  {
+    "name": "PariSruti",
+    "email": "parisruti@gmail.com",
+    "password": "pari Sruti10112006",
+    "role": "farmer",
+    "phone": "8884196069",
+    "address": "19",
+    "state": "Karnataka",
+    "city": "Bengaluru"
+  },
+  {
+    "name": "yuktha",
+    "email": "yuktha@gmail.com",
+    "password": "6789054",
+    "role": "farmer",
+    "phone": "9449890937",
+    "address": "11",
+    "state": "Karnataka",
+    "city": "Tumakuru"
+  },
+  {
+    "name": "gfdybgc",
+    "email": "pagvavb@hgfb.com",
+    "password": "936268536965",
+    "role": "farmer",
+    "phone": "3298654861",
+    "address": "efds",
+    "state": "Karnataka",
+    "city": "Vijayapura"
+  },
+  {
+    "name": "shreya",
+    "email": "shreya@gmail.com",
+    "password": "123456",
+    "role": "consumer",
+    "phone": "1234567890",
+    "address": "1",
+    "state": "Karnataka",
+    "city": "Mysuru"
+  },
+  {
+    "name": "sam",
+    "email": "sam@gmail.com",
+    "password": "123456",
+    "role": "consumer",
+    "phone": "7894561230",
+    "address": "12",
+    "state": "Himachal Pradesh",
+    "city": "Kangra"
+  },
+  {
+    "name": "guna",
+    "email": "guan@u.com",
+    "password": "123456",
+    "role": "consumer",
+    "phone": "1234567890",
+    "address": "123",
+    "state": "Jammu & Kashmir",
+    "city": "Jammu"
+  },
+  {
+    "name": "sam",
+    "email": "sam@me.com",
+    "password": "1236454",
+    "role": "consumer",
+    "phone": "1234567980",
+    "address": "31232",
+    "state": "Goa",
+    "city": "Ponda"
+  },
+  {
+    "name": "samuditha",
+    "email": "msamuditha5@gmail.com",
+    "password": "123456",
+    "role": "bank",
+    "phone": "6361931945",
+    "address": "bgs clg",
+    "state": "Karnataka",
+    "city": "Bengaluru"
+  },
+  {
+    "name": "pavana",
+    "email": "pavangowdasv18191@gmail.com",
+    "password": "123456",
+    "role": "bank",
+    "phone": "1234567812",
+    "address": "blg",
+    "state": "Karnataka",
+    "city": "Bengaluru"
+  },
+  {
+    "name": "samasas",
+    "email": "samu@gmail.com",
+    "password": "1234588",
+    "role": "consumer",
+    "phone": "1234567892",
+    "address": "bgs",
+    "state": "Karnataka",
+    "city": "Bengaluru"
+  },
+  {
+    "name": "samudithaa",
+    "email": "samm@gmail.com",
+    "password": "123456",
+    "role": "farmer",
+    "phone": "1234567812",
+    "address": "clg",
+    "state": "Karnataka",
+    "city": "Bengaluru"
+  },
+  {
+    "name": "saudi",
+    "email": "yuktha232007@gmail.com",
+    "password": "12345678",
+    "role": "consumer",
+    "phone": "1234563453",
+    "address": "clg",
+    "state": "Karnataka",
+    "city": "Bengaluru"
+  },
+  {
+    "name": "sam",
+    "email": "sam@123.com",
+    "password": "3212132123",
+    "role": "consumer",
+    "phone": "9087654321",
+    "address": "jgh",
+    "state": "Jharkhand",
+    "city": "Hazaribagh"
+  },
+  {
+    "name": "pavan ",
+    "email": "pavango1819@gmail.com",
+    "password": "123456",
+    "role": "consumer",
+    "phone": "9876543210",
+    "address": "home",
+    "state": "Karnataka",
+    "city": "Davangere"
+  },
+  {
+    "name": " CHAN",
+    "email": "chan@me.com",
+    "password": "123456",
+    "role": "farmer",
+    "phone": "9876543210",
+    "address": "home",
+    "state": "Karnataka",
+    "city": "Bengaluru"
+  },
+  {
+    "name": "khan",
+    "email": "khan@me.com",
+    "password": "123456",
+    "role": "consumer",
+    "phone": "9876543210",
+    "address": "home",
+    "state": "Karnataka",
+    "city": "Bengaluru"
+  },
+  {
+    "name": "opp",
+    "email": "opp@me.com",
+    "password": "123456",
+    "role": "bank",
+    "phone": "9876543210",
+    "address": "home",
+    "state": "Karnataka",
+    "city": "Bengaluru"
+  }
+]

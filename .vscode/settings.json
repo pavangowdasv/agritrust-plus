@@ -1,0 +1,21 @@
+{
+  // Disable VS Code's built-in CSS linter — it doesn't understand Tailwind v4
+  // custom at-rules (@apply, @theme, @plugin, @layer). These are NOT errors;
+  // Tailwind processes them correctly at build time.
+  "css.validate": false,
+  "scss.validate": false,
+  "less.validate": false,
+
+  // Use Tailwind CSS IntelliSense for proper autocomplete & validation instead
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "tailwindCSS.experimental.classRegex": [],
+  "tailwindCSS.includeLanguages": {
+    "typescript": "html",
+    "typescriptreact": "html"
+  },
+
+  // Silence the unknown-at-rule warnings from the CSS language server
+  "css.lint.unknownAtRules": "ignore"
+}
