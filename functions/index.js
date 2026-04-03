@@ -17,7 +17,7 @@ app.use(cors({ origin: true }));
 app.use(express.json({ limit: "1mb" }));
 
 app.get("/api/health", (_req, res) => {
-  res.json({ ok: true });
+  res.json({ ok: true, timestamp: new Date().toISOString() });
 });
 
 app.post("/api/register", async (req, res) => {
@@ -35,8 +35,10 @@ app.post("/api/register", async (req, res) => {
     if (doc.exists) {
       return res.status(400).json({ error: "User already exists" });
     }
-
-    await userRef.set({ name, email, password, role, phone, address, state, city, createdAt: new Date().toISOString() });
+    await userRef.set({
+      name, email, password, role, phone, address, state, city,
+      createdAt: new Date().toISOString()
+    });
     res.json({ success: true });
   } catch (error) {
     console.error("Registration error:", error);
@@ -98,34 +100,53 @@ Language:
 }
 
 function normalizeMessages(messages) {
-  if (!Array.isArray(messages)) {
-    return [];
-  }
+  if (!Array.isArray(messages)) return [];
   return messages
-    .filter(
-      (message) =>
-        typeof message === "object" &&
-        message !== null &&
-        message.role !== undefined &&
-        message.text !== undefined
-    )
-    .map((message) => ({
-      role: message.role === "model" ? "model" : "user",
-      text: String(message.text || "").trim(),
+    .filter((m) => typeof m === "object" && m !== null && m.role !== undefined && m.text !== undefined)
+    .map((m) => ({
+      role: m.role === "model" ? "model" : "user",
+      text: String(m.text || "").trim(),
     }))
-    .filter((message) => message.text.length > 0);
+    .filter((m) => m.text.length > 0);
 }
 
 function localFallbackReply(userText) {
   const q = userText.toLowerCase();
 
-  // (Fallback conditions)
-  if (q.match(/\b(hello|hi|hey|namaste|vanakkam|namaskar)\b/)) return "Hello! 👋 Welcome to **AgriTrust+**. I'm your AI assistant. You can ask me about the platform, farming tips, blockchain in agriculture, or anything else!";
-  if (q.match(/\b(what is agritrust|about agritrust|tell me about)\b/)) return "**AgriTrust+** is a decentralized agricultural marketplace...";
-  if (q.match(/\b(register|sign up|create account|join)\b/)) return "To register on AgriTrust+:\n1. Click **Login** in the top navigation\n2. Select your role (Producer, Consumer, or Financial Institution)\n3. Click **Proceed** and then **Register here**\n4. Fill in your details — email, phone, address, state & city\n5. Submit and you'll be logged in automatically!";
-  if (q.match(/\b(login|sign in|log in)\b/)) return "To log in:\n1. Click **Login** in the top navigation\n2. Select your role (Producer / Consumer / Financial Institution)\n3. Enter your registered email and password\n4. Click **Sign In**";
-  
-  return `Thank you for your question! 🌿\n\nI'm the **AgriTrust+ Assistant**. While I work best with questions about the platform, I can help you with basic queries. To unlock full AI capabilities, please configure the GEMINI_API_KEY environment variable.`;
+  if (q.match(/\b(hello|hi|hey|namaste|vanakkam|namaskar)\b/))
+    return "Hello! 👋 Welcome to **AgriTrust+**. I'm your AI assistant. You can ask me about the platform, farming tips, blockchain in agriculture, or anything else!";
+
+  if (q.match(/\b(what is agritrust|about agritrust|tell me about)\b/))
+    return "**AgriTrust+** is a decentralized agricultural marketplace that connects farmers directly with consumers and financial institutions — eliminating middlemen, ensuring fair prices for producers, and providing complete traceability for buyers through blockchain technology.";
+
+  if (q.match(/\b(register|sign up|create account|join)\b/))
+    return "To register on AgriTrust+:\n1. Click **Login** in the top navigation\n2. Select your role (Producer, Consumer, or Financial Institution)\n3. Click **Proceed** and then **Register here**\n4. Fill in your details — email, phone, address, state & city\n5. Submit and you'll be logged in automatically!";
+
+  if (q.match(/\b(login|sign in|log in)\b/))
+    return "To log in:\n1. Click **Login** in the top navigation\n2. Select your role (Producer / Consumer / Financial Institution)\n3. Enter your registered email and password\n4. Click **Sign In**";
+
+  if (q.match(/\b(farmer|producer|sell|crop|harvest|list)\b/))
+    return "**For Producers (Farmers):**\n- Register with the \"Producer\" role\n- List your verified crops on the secure marketplace\n- Receive direct, instant payments to your wallet\n- Access credit from integrated financial institutions based on your trading history";
+
+  if (q.match(/\b(consumer|buyer|buy|purchase|product|trace)\b/))
+    return "**For Consumers:**\n- Browse blockchain-verified produce from verified farmers\n- Scan QR codes to trace the complete journey of any product\n- Purchase directly from the source with zero intermediary fees\n- Guaranteed quality and authenticity for every order";
+
+  if (q.match(/\b(bank|finance|loan|credit|insurance|institution)\b/))
+    return "**For Financial Institutions:**\n- Access verified, immutable farmer transaction histories\n- Evaluate loan applications backed by smart contract data\n- Issue credit and insurance with minimal risk\n- Monitor repayment rates on the live institutional dashboard";
+
+  if (q.match(/\b(blockchain|decentralized|smart contract|ledger)\b/))
+    return "**Blockchain in AgriTrust+:**\nEvery transaction is permanently recorded on a distributed ledger — making it immutable, transparent, and verifiable by all parties. This eliminates fraud, ensures fair pricing, and creates a complete audit trail from farm to consumer.";
+
+  if (q.match(/\b(payment|transfer|money|wallet)\b/))
+    return "AgriTrust+ uses **automated smart contracts** for payments:\n- Payments are triggered instantly when a transaction is confirmed\n- Funds go directly to the farmer's wallet — no delays, no middlemen\n- Full payment history is recorded on the blockchain for transparency";
+
+  if (q.match(/\b(thank|thanks|great|awesome|perfect|good)\b/))
+    return "You're welcome! 😊 Is there anything else I can help you with about AgriTrust+?";
+
+  if (q.match(/\b(bye|goodbye|exit|close)\b/))
+    return "Goodbye! 👋 Come back anytime you need help with AgriTrust+. Happy farming! 🌾";
+
+  return "Thank you for your question! 🌿\n\nI'm the **AgriTrust+ Assistant**. I can help you with:\n- 🌾 The AgriTrust platform & features\n- 👩‍🌾 Farmer / Consumer / Bank workflows\n- 🔗 Blockchain & traceability\n- 📱 Registration & login help\n- 💰 Payments & security";
 }
 
 app.post("/api/chat", async (req, res) => {
@@ -146,14 +167,12 @@ app.post("/api/chat", async (req, res) => {
   try {
     const ai = new GoogleGenAI({ apiKey });
     const response = await ai.models.generateContent({
-      model: process.env.GEMINI_MODEL || "gemini-2.0-flash",
-      contents: messages.map((message) => ({
-        role: message.role,
-        parts: [{ text: message.text }],
+      model: "gemini-2.0-flash",
+      contents: messages.map((m) => ({
+        role: m.role,
+        parts: [{ text: m.text }],
       })),
-      config: {
-        systemInstruction: buildSystemInstruction(language),
-      },
+      config: { systemInstruction: buildSystemInstruction(language) },
     });
 
     const text = response.text?.trim();
@@ -164,9 +183,11 @@ app.post("/api/chat", async (req, res) => {
     return res.json({ text });
   } catch (error) {
     console.error("Gemini API error:", error);
-    return res.json({ text: localFallbackReply(lastUserMessage) + "\n\n*(Note: AI service temporarily unavailable — using offline mode)*" });
+    return res.json({
+      text: localFallbackReply(lastUserMessage) + "\n\n*(Note: AI service temporarily unavailable — using offline mode)*",
+    });
   }
 });
 
-// Export the Express app as a Firebase HTTP Function
-export const api = onRequest(app);
+// Export as Firebase HTTP Function v2
+export const api = onRequest({ region: "us-central1" }, app);
